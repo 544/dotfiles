@@ -1,0 +1,108 @@
+# screenrc
+# コマンド
+#escape ^x^x
+escape ^t^t
+
+# changes the directory for hardcopy.
+#hardcopydir 'screen/hardcopy'
+hardcopydir '~/work/tsuka'
+hardcopy_append on
+
+backtick 0 0 0 tail -f /fcube-app/RtFA/var/log/process*.log
+
+
+# 下にステータス表示
+hardstatus alwayslastline '%m/%d %02c:%s %{= .g}%H%{-} %L=%-w%45L>%{=u .r}%n %t%{-}%+w %-17<%=%{= .y}(%l)'
+#			%m/%d %01c:%s %{= .g}%H%{-} %L=%-w%44L>%{=u g.}%n %t%{-}%+w %-17<%=%{= .y}(%l)
+#			%m/%d %02c:%s                                                                  -- (1)タイムスタンプ(月/日 時:分:秒)
+#			              %{= .g}%H%{-}                                                    -- (2)背景色gでホスト名を表示(して背景色を元に戻す)
+#			                            %L=                                                -- (3)ウィンドウ一覧のタブ表示の開始位置
+#			                               %-w                                             -- (4)表示中のウィンドウより小さい番号のウィンドウ一覧
+#			                                  %45L>                                        -- (5)ウィンドウ一覧をスクロールさせる左端を45%で指定(この解説は自信なし)
+#			                                       %{=u .g}%n %d%{-}                       -- (6)前景色gで下線付きでウィンドウ番号とタイトルを出力
+#			                                                        %+w                    -- (7)表示中のウィンドウより大きい番号のウィンドウ一覧
+#			                                                            %-17<              -- (8)右の余白を半角17文字確保
+#			                                                                 %=            -- (9)残り右全部をパディング(余白を最大限広げるため)
+#			                                                                   %{= .y}(%l) -- (10)ロードアベレージを背景色yで表示
+
+
+# 起動時メッセージ
+startup_message off
+
+# 自動で保管
+autodetach on
+
+# スクロール量
+defscrollback 3000
+
+# changes the kind of messages to the nethack-style.
+nethack on
+
+# enable visual vells
+#vbell on
+
+# disables vbell toggle binding to use ^G as cancel.
+bind ^G
+
+# don't remove windows from the window list as soon as window process exits.
+zombie kr #  k: destory window, r: resurrect window
+
+# echo command name whenever a window is created or resurrected.
+verbose on
+
+# window re-numbering
+# override default `N'(number) mapping
+bind N colon 'number '
+
+caption always '%?%F%{=b wk}%:%{= Kk}%?%2n%f%07=%t%='
+#		%?%F%{= gW}%:%{= Kk}%?%2n%f%07=%t%=
+#		%?%F       %:       %?                -- (1) IF/ELSE フォーカスがあるかないか(%F)を条件にする
+#		    %{= gW}                           -- (2) フォーカスがある場合、以降の前景色をg、背景色をWにする
+#		             %{= Kk}                  -- (3) フォーカスがない場合、以降の前景色をK、背景色をkにする
+#		                      %2n             -- (4) ウィンドウ番号を2桁幅で出力
+#		                         %f           -- (5) ウィンドウのフラグを出力(「(L)」とか「Z」とか「@」とか)
+#		                           %07=       -- (6) 7桁パディング(フラグの出力幅は不定だけど7桁あれば足りるだろう)
+#		                               %t     -- (7) ウィンドウタイトルを出力
+#		                                 %=   -- (8) 残り右全部パディング(右端まで背景色を有効にするため)
+
+# continuous resize region
+# orverride default `r'(wrap) mapping.
+bind r eval 'command -c cresize'
+bind -c cresize j eval 'resize +1'  'command -c cresize'
+bind -c cresize k eval 'resize -1'  'command -c cresize'
+bind -c cresize J eval 'resize +10' 'command -c cresize'
+bind -c cresize K eval 'resize -10' 'command -c cresize'
+bind -c cresize = eval 'resize ='   'command -c cresize'
+bind -c cresize n eval 'resize min' 'command -c cresize'
+bind -c cresize x eval 'resize max' 'command -c cresize'
+
+# APPENDIX: STRING ESCAPES (make extracts from screen (1))
+#
+# The attribute set can either be specified as hexadecimal number
+# or a combination of the following letters:
+#
+#   d     dim
+#   u     underline
+#   b     bold
+#   r     reverse
+#   s     standout
+#   B     blinking
+#
+# Colors are coded either as a hexadecimal number or two letters specifying
+# the desired background and foreground color (in that order).
+# The following colors are known:
+#
+#   k     black
+#   r     red
+#   g     green
+#   y     yellow
+#   b     blue
+#   m     magenta
+#   c     cyan
+#   w     white
+#   d     default color
+#   .     leave color unchanged
+#
+# The capitalized versions of the letter specify bright colors.
+# You can also use the pseudo-color `i' to set just the brightness and leave the color unchanged.
+
