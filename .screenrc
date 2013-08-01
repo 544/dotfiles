@@ -5,11 +5,11 @@ escape ^t^t
 
 # changes the directory for hardcopy.
 #hardcopydir 'screen/hardcopy'
-hardcopydir '~/work/tsuka'
+hardcopydir '~/'
 hardcopy_append on
 
-backtick 0 0 0 tail -f /fcube-app/RtFA/var/log/process*.log
-
+# 反応があったらステータスバーに表示
+#backtick 0 0 0 tail -f /fcube-app/RtFA/var/log/process*.log
 
 # 下にステータス表示
 hardstatus alwayslastline '%m/%d %02c:%s %{= .g}%H%{-} %L=%-w%45L>%{=u .r}%n %t%{-}%+w %-17<%=%{= .y}(%l)'
@@ -34,6 +34,9 @@ autodetach on
 
 # スクロール量
 defscrollback 3000
+
+# マウスでスクロールできるようにする。(itermの場合は別途itermの設定が必要)
+termcapinfo xterm* ti@:te@
 
 # changes the kind of messages to the nethack-style.
 nethack on
