@@ -4,8 +4,8 @@
 # PATHの設定
 #PATH=/usr/local/bin:/sw/bin:$PATH
 #export PATH
-export PATH=$PATH:/opt/local/share/scala-2.9/bin/:/usr/local/play
-export PATH=$PATH:/usr/local/mysql/bin/
+#export PATH=$PATH:/opt/local/share/scala-2.9/bin/:/usr/local/play
+#export PATH=$PATH:/usr/local/mysql/bin/
 
 # for Vim
 export VIMHOME=~/.vim/
@@ -43,6 +43,7 @@ EDITOR=vim
 #alias vi='/usr/local/bin/Vim'
 alias ll='ls -laG'
 alias lR='ls -laRG'
+alias rm='rm -i'
 
 # global alias
 alias -g L="| $PAGER"
