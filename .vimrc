@@ -151,6 +151,7 @@ set laststatus=2 "ステータスラインを常に表示
 "エンコーディング関係
 set fileformat=unix
 set fileformats=unix,dos,mac
+set encoding=utf-8
 "if has('win32')
 "  set encoding=cp932
 "  set fileencoding=utf-8
