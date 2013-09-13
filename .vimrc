@@ -1,13 +1,9 @@
 "全般
 set nocompatible
-"set viminfo+=!   "yankring用に!を追加
 set shellslash   "パス区切りをスラッシュにする
 set lazyredraw
 set splitright   "vsplitで新規ウィンドウは右側にする
 set t_Co=256
-
-"バッファで編集中のファイルがあるディレクトリに移動
-"autocmd BufEnter * if bufname("") !~ "^¥[A-Za-z0-9¥]://" | silent! lcd %:p:h | endif
 
 "Tab関係
 "tabstop(ts) Tab文字を画面上で何文字に展開するか
@@ -218,19 +214,6 @@ endif
 let &backupdir = s:backup_dir
 let &directory = s:backup_dir
 
-"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
-"http://www.kawaz.jp/pukiwiki/?vim#ib970976
-"augroup BinaryXXD
-"  autocmd!
-"  autocmd BufReadPre  *.bin let &binary =1
-"  autocmd BufReadPost * if &binary | silent %!xxd -g 1
-"  autocmd BufReadPost * set ft=xxd | endif
-"  autocmd BufWritePre * if &binary | %!xxd -r
-"  autocmd BufWritePre * endif
-"  autocmd BufWritePost * if &binary | silent %!xxd -g 1
-"  autocmd BufWritePost * set nomod | endif
-"augroup END
-
 "操作関係
 set scrolloff=10    "スクロール時に表示を5行確保
 
@@ -282,10 +265,10 @@ nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
 
 "マウス関係
-"set mouse=a
-"set ttymouse=xterm2
+set mouse=a
+set ttymouse=xterm2
 
-"set tags=tags       "タグファイル
+set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
 "編集中のファイルのあるディレクトリに移動
@@ -302,56 +285,13 @@ let g:html_use_xhtml = 1
 
 "========== プラグイン設定 ==========
 
-"autocomplpop
-"http://www.vim.org/scripts/script.php?script_id=1879
-let g:AutoComplPop_NotEnableAtStartup=1
-let g:AutoComplPop_MappingDriven=1
-autocmd FileType * let g:AutoComplPop_CompleteOption='.,w,b,u,t,i'
-autocmd FileType php let g:AutoComplPop_CompleteOption='.,w,b,u,t,k$VIM/vimfiles/dict/php.dict'
-
-"PHP辞書
-"http://www.asahi-net.or.jp/~wv7y-kmr/memo/vim_php.html
-
-"taglist
-"http://www.vim.org/scripts/script.php?script_id=273
-"if has('win32')
-"  let Tlist_Ctags_Cmd="ctags.exe"
-"else
-"  let Tlist_Ctags_Cmd="ctags"
-"endif
-"let Tlist_Show_One_File=1
-"let Tlist_Exit_OnlyWindow=1
-"let Tlist_Use_Right_Window=1
-"let tlist_php_settings = 'php;c:class;d:constant;f:function'
-"map <silent> <leader>tl :TlistToggle<CR>
-
-"bufexplorer
-"http://www.vim.org/scripts/script.php?script_id=42
-"map <silent> <leader>bl :BufExplorer<CR>
-
-"winmanager
-"http://www.vim.org/scripts/script.php?script_id=95
-"http://www.vim.org/scripts/script.php?script_id=1440
-let g:winManagerWindowLayout = 'FileExplorer,TagList'
-let g:explSplitRight=1
-let g:explStartRight=1
-let g:explDateFormat='%Y-%m-%d %H:%M:%S'
-
-map <C-w><C-f> :<C-u>FirstExplorerWindow<CR>
-map <C-w><C-b> :<C-u>BottomExplorerWindow<CR>
-map <C-w><C-t> :<C-u>WMToggle<CR>
-
 "matchit
 :source $VIMRUNTIME/macros/matchit.vim
 
-"mru.vim
-"http://www.vim.org/scripts/script.php?script_id=521
-let MRU_Max_Entries=20
-
 "smooth-scroll.vim
 "http://www.vim.org/scripts/script.php?script_id=1601
-"nmap <PageDown> <C-F>
-"nmap <PageUp> <C-B>
+nmap <PageDown> <C-F>
+nmap <PageUp> <C-B>
 
 "evalbuffer.vim
 "http://eureka.pasela.org/
@@ -372,70 +312,6 @@ let g:bwTemplate_email='paselan at Gmail.com'
 nnoremap <unique> <F4> :<C-u>WTemplate<CR>
 nnoremap <unique> <S-F4> :<C-u>WTemplateList<CR>
 
-"project.vim
-"http://www.vim.org/scripts/script.php?script_id=69
-let g:proj_flags="imstg"
-
-"Align.vim
-"http://www.vim.org/scripts/script.php?script_id=294
-let g:Align_xstrlen=3
-
-"surround.vim
-"http://www.vim.org/scripts/script.php?script_id=1697
-
-"eregex.vim
-"http://www.vector.co.jp/soft/unix/writing/se265654.html
-
-"vcscommand.vim
-"http://www.vim.org/scripts/script.php?script_id=90
-
-"yankring.vim
-"http://www.vim.org/scripts/script.php?script_id=1234
-
-"svn-diff.vim
-"http://www.vim.org/scripts/script.php?script_id=978
-
-"grep.vim
-"http://www.vim.org/scripts/script.php?script_id=311
-
-"phpmanual.vim
-"http://www.asahi-net.or.jp/~wv7y-kmr/tools/phpmanual.html
-let phpmanual_convfilter='cat'
-let phpmanual_htmlviewer='w3m -O "EUC-JP" -T text/html'
-let phpmanual_use_ext_browser=1
-let phpmanual_ext_command='PHPBrowser'
-let phpmanual_ext_browser_cmd='firefox'
-
-"monday.vim
-"http://www.vim.org/scripts/script.php?script_id=1046
-
-"commentout.vim
-"http://nanasi.jp/articles/vim/commentout_source.html
-
-"AutoClose.vim
-"http://www.vim.org/scripts/script.php?script_id=1849
-"IMとの相性が悪いようなので解決策が見つかるまで無効にする
-"let g:autoclose_on=0
-
-"colorsel.vim
-"http://www.vim.org/scripts/script.php?script_id=927
-
-"ScreenShot_mb.vim
-"http://nanasi.jp/articles/vim/screenshot_vim.html
-let g:ScreenShot = {'Title':1, 'Icon':0, 'Credits':0, 'fill_screen':0}
-
-"Chalice
-"http://www.kaoriya.net/
-set runtimepath+=$VIM/vimfiles/chalice
-
-"TwitVim
-"http://www.vim.org/scripts/script.php?script_id=2204
-"let twitvim_api_root = 'https://twitter.com'
-"let twitvim_cert_insecure = 1
-"let twitvim_login_b64 = 'IDとパスワード'
-"let twitvim_browser_cmd = 'C:¥Program Files¥Mozilla Firefox¥firefox.exe'
-"let twitvim_count = 50
-
 "========== 各言語での実行
 "for perl
 command! Perl call s:Perl()
@@ -443,7 +319,7 @@ nmap <F8> :Perl<CR>
 function! s:Perl()
 	:w
 		:!perl %
-	endfunction
+endfunction
 
 "========== プライベートな拡張 ==========
 
@@ -509,5 +385,4 @@ function! WriteNoEOL()
 endf
 command! WriteNoEOL :call WriteNoEOL()
 
-" for ctags;
-set tags=/home/game/git/sg-ffjm/pm/Ffjm/tags,
+" ==== END SETTING
