@@ -4,6 +4,7 @@ set shellslash   "パス区切りをスラッシュにする
 set lazyredraw
 set splitright   "vsplitで新規ウィンドウは右側にする
 set t_Co=256
+colorscheme darkblue  " 色テーマ
 
 "Tab関係
 "tabstop(ts) Tab文字を画面上で何文字に展開するか
