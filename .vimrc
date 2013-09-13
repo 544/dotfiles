@@ -1,331 +1,9 @@
-
-" Setting for Neobundle Plugin
-set nocompatible               " Be iMproved
-
- if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
-
- call neobundle#rc(expand('~/.vim/bundle/'))
-
- " Let NeoBundle manage NeoBundle
- NeoBundleFetch 'Shougo/neobundle.vim'
-
- " Recommended to install
- " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
- NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
- NeoBundle 'https://github.com/Shougo/neosnippet.vim'
- " My Bundles here:
-NeoBundle 'scrooloose/nerdtree'
- "
- " Note: You don't set neobundle setting in .gvimrc!
- " Original repos on github
- "NeoBundle 'tpope/vim-fugitive'
- "NeoBundle 'Lokaltog/vim-easymotion'
- "NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
- "" vim-scripts repos
- "NeoBundle 'L9'
- "NeoBundle 'FuzzyFinder'
- "NeoBundle 'rails.vim'
- "" Non github repos
- "NeoBundle 'git://git.wincent.com/command-t.git'
- "" gist repos
- "NeoBundle 'gist:Shougo/656148', {
- "      \ 'name': 'everything.vim',
- "      \ 'script_type': 'plugin'}
- "" Non git repos
- "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
- "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
-
- filetype plugin indent on     " Required!
- "
- " Brief help
- " :NeoBundleList          - list configured bundles
- " :NeoBundleInstall(!)    - install(update) bundles
- " :NeoBundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-
- " Installation check.
- NeoBundleCheck
-
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" For Unite
-NeoBundle 'Shougo/unite.vim'
-
-
-
-
-
-
-
-
 "全般
 set nocompatible
-set viminfo+=!   "yankring用に!を追加
-"set shellslash   "パス区切りをスラッシュにする
+set shellslash   "パス区切りをスラッシュにする
 set lazyredraw
 set splitright   "vsplitで新規ウィンドウは右側にする
 set t_Co=256
-"colorscheme rdark
-"colorscheme desert
-"set background=dark
-"colorscheme peaksea
-"colorscheme rootwater
-"colorscheme edark
-"let edark_current_line=1
-"let edark_ime_cursor=1
-"let edark_insert_status_line=1
-
-" setting for NeoBundle
-set nocompatible               " Be iMproved
-
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Recommended to install
-" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-NeoBundle 'Shougo/vimproc'
-
-" My Bundles here:
-"
-" Note: You don't set neobundle setting in .gvimrc!
-" Original repos on github
-NeoBundle 'Shougo/neocomplcache.vim'
-let g:neocomplcache_enable_at_startup = 1
-"NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"" vim-scripts repos
-"NeoBundle 'L9'
-"NeoBundle 'FuzzyFinder'
-"NeoBundle 'rails.vim'
-"" Non github repos
-"NeoBundle 'git://git.wincent.com/command-t.git'
-"" gist repos
-"NeoBundle 'gist:Shougo/656148', {
-"      \ 'name': 'everything.vim',
-"      \ 'script_type': 'plugin'}
-"" Non git repos
-"NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
-"
-"
-
-"let: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-
-"edark
-"http://eureka.pasela.org/
-
-"Low-Contrast Color Schemes
-"http://www.vim.org/scripts/script.php?script_id=1448
-
-"rdark
-"http://www.vim.org/scripts/script.php?script_id=1732
-
-"ChocolateLiquor
-"http://www.vim.org/scripts/script.php?script_id=592
-
-"peaksea
-"http://www.vim.org/scripts/script.php?script_id=760
-
-"rootwater
-"http://www.vim.org/scripts/script.php?script_id=2350
-
-"tango-desert
-"http://www.vim.org/scripts/script.php?script_id=2671
-
-"バッファで編集中のファイルがあるディレクトリに移動
-"autocmd BufEnter * if bufname("") !~ "^¥[A-Za-z0-9¥]://" | silent! lcd %:p:h | endif
 
 "Tab関係
 "tabstop(ts) Tab文字を画面上で何文字に展開するか
@@ -536,19 +214,6 @@ endif
 let &backupdir = s:backup_dir
 let &directory = s:backup_dir
 
-"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
-"http://www.kawaz.jp/pukiwiki/?vim#ib970976
-"augroup BinaryXXD
-"  autocmd!
-"  autocmd BufReadPre  *.bin let &binary =1
-"  autocmd BufReadPost * if &binary | silent %!xxd -g 1
-"  autocmd BufReadPost * set ft=xxd | endif
-"  autocmd BufWritePre * if &binary | %!xxd -r
-"  autocmd BufWritePre * endif
-"  autocmd BufWritePost * if &binary | silent %!xxd -g 1
-"  autocmd BufWritePost * set nomod | endif
-"augroup END
-
 "操作関係
 set scrolloff=10    "スクロール時に表示を5行確保
 
@@ -600,10 +265,11 @@ nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
 
 "マウス関係
+"マウス操作ができるようになるが、操作性がイマイチ
 "set mouse=a
 "set ttymouse=xterm2
 
-"set tags=tags       "タグファイル
+set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
 "編集中のファイルのあるディレクトリに移動
@@ -620,56 +286,13 @@ let g:html_use_xhtml = 1
 
 "========== プラグイン設定 ==========
 
-"autocomplpop
-"http://www.vim.org/scripts/script.php?script_id=1879
-let g:AutoComplPop_NotEnableAtStartup=1
-let g:AutoComplPop_MappingDriven=1
-autocmd FileType * let g:AutoComplPop_CompleteOption='.,w,b,u,t,i'
-autocmd FileType php let g:AutoComplPop_CompleteOption='.,w,b,u,t,k$VIM/vimfiles/dict/php.dict'
-
-"PHP辞書
-"http://www.asahi-net.or.jp/~wv7y-kmr/memo/vim_php.html
-
-"taglist
-"http://www.vim.org/scripts/script.php?script_id=273
-"if has('win32')
-"  let Tlist_Ctags_Cmd="ctags.exe"
-"else
-"  let Tlist_Ctags_Cmd="ctags"
-"endif
-"let Tlist_Show_One_File=1
-"let Tlist_Exit_OnlyWindow=1
-"let Tlist_Use_Right_Window=1
-"let tlist_php_settings = 'php;c:class;d:constant;f:function'
-"map <silent> <leader>tl :TlistToggle<CR>
-
-"bufexplorer
-"http://www.vim.org/scripts/script.php?script_id=42
-"map <silent> <leader>bl :BufExplorer<CR>
-
-"winmanager
-"http://www.vim.org/scripts/script.php?script_id=95
-"http://www.vim.org/scripts/script.php?script_id=1440
-let g:winManagerWindowLayout = 'FileExplorer,TagList'
-let g:explSplitRight=1
-let g:explStartRight=1
-let g:explDateFormat='%Y-%m-%d %H:%M:%S'
-
-map <C-w><C-f> :<C-u>FirstExplorerWindow<CR>
-map <C-w><C-b> :<C-u>BottomExplorerWindow<CR>
-map <C-w><C-t> :<C-u>WMToggle<CR>
-
 "matchit
 :source $VIMRUNTIME/macros/matchit.vim
 
-"mru.vim
-"http://www.vim.org/scripts/script.php?script_id=521
-let MRU_Max_Entries=20
-
 "smooth-scroll.vim
 "http://www.vim.org/scripts/script.php?script_id=1601
-"nmap <PageDown> <C-F>
-"nmap <PageUp> <C-B>
+nmap <PageDown> <C-F>
+nmap <PageUp> <C-B>
 
 "evalbuffer.vim
 "http://eureka.pasela.org/
@@ -690,69 +313,126 @@ let g:bwTemplate_email='paselan at Gmail.com'
 nnoremap <unique> <F4> :<C-u>WTemplate<CR>
 nnoremap <unique> <S-F4> :<C-u>WTemplateList<CR>
 
-"project.vim
-"http://www.vim.org/scripts/script.php?script_id=69
-let g:proj_flags="imstg"
+" =========== for NeoBundle
+"
+set nocompatible               " Be iMproved
 
-"Align.vim
-"http://www.vim.org/scripts/script.php?script_id=294
-let g:Align_xstrlen=3
+if has('vim_starting')
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
 
-"surround.vim
-"http://www.vim.org/scripts/script.php?script_id=1697
+call neobundle#rc(expand('~/.vim/bundle/'))
 
-"eregex.vim
-"http://www.vector.co.jp/soft/unix/writing/se265654.html
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-"vcscommand.vim
-"http://www.vim.org/scripts/script.php?script_id=90
+" Recommended to install
+" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
 
-"yankring.vim
-"http://www.vim.org/scripts/script.php?script_id=1234
+filetype plugin indent on     " Required!
 
-"svn-diff.vim
-"http://www.vim.org/scripts/script.php?script_id=978
+" Installation check.
+NeoBundleCheck
 
-"grep.vim
-"http://www.vim.org/scripts/script.php?script_id=311
+" start neocomplcache
+let g:neocomplcache_enable_at_startup = 1
 
-"phpmanual.vim
-"http://www.asahi-net.or.jp/~wv7y-kmr/tools/phpmanual.html
-let phpmanual_convfilter='cat'
-let phpmanual_htmlviewer='w3m -O "EUC-JP" -T text/html'
-let phpmanual_use_ext_browser=1
-let phpmanual_ext_command='PHPBrowser'
-let phpmanual_ext_browser_cmd='firefox'
+" ------ setting for neocomplcache
 
-"monday.vim
-"http://www.vim.org/scripts/script.php?script_id=1046
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-"commentout.vim
-"http://nanasi.jp/articles/vim/commentout_source.html
+" Enable heavy features.
+" Use camel case completion.
+"let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+"let g:neocomplcache_enable_underbar_completion = 1
 
-"AutoClose.vim
-"http://www.vim.org/scripts/script.php?script_id=1849
-"IMとの相性が悪いようなので解決策が見つかるまで無効にする
-"let g:autoclose_on=0
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
 
-"colorsel.vim
-"http://www.vim.org/scripts/script.php?script_id=927
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
-"ScreenShot_mb.vim
-"http://nanasi.jp/articles/vim/screenshot_vim.html
-let g:ScreenShot = {'Title':1, 'Icon':0, 'Credits':0, 'fill_screen':0}
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-"Chalice
-"http://www.kaoriya.net/
-set runtimepath+=$VIM/vimfiles/chalice
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
-"TwitVim
-"http://www.vim.org/scripts/script.php?script_id=2204
-let twitvim_api_root = 'https://twitter.com'
-let twitvim_cert_insecure = 1
-let twitvim_login_b64 = 'IDとパスワード'
-let twitvim_browser_cmd = 'C:¥Program Files¥Mozilla Firefox¥firefox.exe'
-let twitvim_count = 50
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplcache_enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplcache_enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
+
 
 "========== 各言語での実行
 "for perl
@@ -761,7 +441,7 @@ nmap <F8> :Perl<CR>
 function! s:Perl()
 	:w
 		:!perl %
-	endfunction
+endfunction
 
 "========== プライベートな拡張 ==========
 
@@ -827,9 +507,4 @@ function! WriteNoEOL()
 endf
 command! WriteNoEOL :call WriteNoEOL()
 
-
-" vim:set ts=2 sts=2 sw=2 et:
-
-
-" for ctags;
-set tags=/home/game/git/sg-ffjm/pm/Ffjm/tags,
+" ==== END SETTING
