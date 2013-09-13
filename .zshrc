@@ -1,6 +1,3 @@
-
-#compdef _fsv scb3-st-fsv-51.sh
-
 # PATHの設定
 #PATH=/usr/local/bin:/sw/bin:$PATH
 #export PATH
@@ -9,22 +6,6 @@
 
 # for Vim
 export VIMHOME=~/.vim/
-
-#export java
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home/
-
-# for Maven
-#export MAVEN_HOME=/usr/local/mvn
-#export PATH=${MAVEN_HOME}/bin:${PATH}
-
-# for Haskel href
-#export HREF_DATADIR=/usr/share/href
-#compctl -K _href href
-#functions _href () {
-#     reply=(`cat /usr/share/href/comptable|awk -F, '{print $2}'|sort|uniq`)
-#     # /usr/share/href/comptable の Path は自分の環境に書き換える
-#}
-#href () { command href $@ | ruby -r nkf -ne 'print NKF.nkf("-w", $_)' ; }
 
 #文字コードの設定
 LANG=ja_JP.UTF-8
@@ -39,11 +20,13 @@ export SVN_EDITOR
 EDITOR=vim
 
 #alias
-#alias vim='/usr/local/bin/Vim'
-#alias vi='/usr/local/bin/Vim'
 alias ll='ls -laG'
 alias lR='ls -laRG'
 alias rm='rm -i'
+
+# local alias for develop
+alias RRR='sudo apachectl restart';
+hash -d FF=/home/game/git/sg-ffjm
 
 # global alias
 alias -g L="| $PAGER"
@@ -55,9 +38,35 @@ alias -g X="| xargs"
 alias -g V="| vim -R -"
 
 # for mysql
-alias MYSQLCOM=/Library/StartupItems/MySQLCOM/MySQLCOM
+#alias MYSQLCOM=/Library/StartupItems/MySQLCOM/MySQLCOM
 
 # prompt
+# fix ssh env
+if [ "$TERM" = "screen" ]; then
+  alias fixsshenv='cat ~/.ssh/fix_ssh_env | sh'
+  alias ssh='fixsshenv; ssh'
+  alias svn='fixsshenv; svn'
+else
+  export | grep '^SSH_' > ~/.ssh/fix_ssh_env
+fi
+
+# VCSの情報を取得するzshの便利関数 vcs_infoを使う
+autoload -Uz vcs_info
+
+# 表示フォーマットの指定
+# %b ブランチ情報
+# %a アクション名(mergeなど)
+zstyle ':vcs_info:*' formats '(%b)'
+zstyle ':vcs_info:*' actionformats '(%b|%a)'
+precmd () {
+    psvar=()
+    LANG=en_US.UTF-8 vcs_info
+    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+}
+
+# バージョン管理されているディレクトリにいれば表示，そうでなければ非表示
+#RPROMPT="%1(v|%F{green}%1v%f|)"
+
 autoload -U colors
 colors
 local LPCOLOR='%{%(!.$fg[red].$fg[cyan])%}'
@@ -70,11 +79,9 @@ PROMPT=$LPCOLOR'[${USER}@${HOST%%.*}] %(!.#.$) '$DEFAULT
 #PROMPT=$LPCOLOR'[`whoami`@`hostname`] %(!.#.$) '$DEFAULT
 #RPROMPT=$RPCOLOR'[%~]'$DEFAULT
 RPROMPT=$RPCOLOR'%T[%~]'$DEFAULT
+RPROMPT=%1(v|%F{blue}%1v%f|)$RPCOLOR'%T[%~]'$DEFAULT
 setopt prompt_subst
 
-# for macports
-# ローカルの補完ディレクトリを追加
-fpath=(~/.zsh/functions ${fpath})
 # キャッシュの設定
 if [ -d ~/.zsh/cache ]; then
     zstyle ':completion:*' use-cache yes
@@ -218,7 +225,7 @@ setopt short_loops
 #setopt xtrace
 
 # 色を使う
-#setopt prompt_subst
+setopt prompt_subst
 
 # シェルのプロセスごとに履歴を共有
 setopt share_history
