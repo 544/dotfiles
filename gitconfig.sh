@@ -6,7 +6,7 @@
 #git config --global user.email johndoe@example.com
 
 # コミットコメント編集用エディタ
-git config --global core.editor vi
+git config --global core.editor 'vi -c "set fenc=utf-8"'
 
 # log diff 利用時のページャ
 # nkfかますとうまく動かない・・・

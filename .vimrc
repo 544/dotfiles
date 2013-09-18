@@ -384,6 +384,7 @@ NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
 NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'https://github.com/Shougo/unite.vim'
 
 filetype plugin indent on     " Required!
 filetype indent on
