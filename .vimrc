@@ -4,7 +4,7 @@ set shellslash   "パス区切りをスラッシュにする
 set lazyredraw
 set splitright   "vsplitで新規ウィンドウは右側にする
 set t_Co=256
-colorscheme darkblue  " 色テーマ
+"colorscheme darkblue  " 色テーマ
 
 "Tab関係
 "tabstop(ts) Tab文字を画面上で何文字に展開するか
@@ -371,11 +371,21 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Recommended to install
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
+NeoBundle 'https://github.com/Shougo/neosnippet.vim'
+NeoBundle 'scrooloose/nerdtree'
 
 filetype plugin indent on     " Required!
+filetype indent on
+syntax on
 
 " Installation check.
 NeoBundleCheck
