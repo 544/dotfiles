@@ -1,9 +1,5 @@
-# PATHの設定
-#PATH=/usr/local/bin:/sw/bin:$PATH
-#export PATH
-#export PATH=$PATH:/opt/local/share/scala-2.9/bin/:/usr/local/play
-#export PATH=$PATH:/usr/local/mysql/bin/
-
+# setting for zsh
+#
 # for Vim
 export VIMHOME=~/.vim/
 
@@ -22,6 +18,12 @@ EDITOR=vim
 alias ll='ls -laG'
 alias lR='ls -laRG'
 alias rm='rm -i'
+
+# alias for git
+alias gs='git status'
+alias ga='git add'
+alias gd='git diff'
+alias gg='git graph'
 
 # local alias for develop
 alias RRR='sudo apachectl restart';
@@ -236,3 +238,5 @@ setopt transient_rprompt
 #  cd -[tab] でpushd
 setopt autopushd
 
+# dont use git completion
+__git_files() { _files }
