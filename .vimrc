@@ -517,11 +517,6 @@ autocmd vimenter * if !argc() | NERDTree | endif
 ""How can I close vim if the only window left open is a NERDTree?
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-let file_name = expand("%:p")
-if has('vim_starting') &&  file_name == ""
-    autocmd VimEnter * call ExecuteNERDTree()
-endif
- 
 " カーソルが外れているときは自動的にnerdtreeを隠す
 function! ExecuteNERDTree()
     "b:nerdstatus = 1 : NERDTree 表示中
