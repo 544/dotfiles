@@ -13,7 +13,6 @@ export LANG
 
 # その他環境変数
 export SHELL=/bin/zsh
-#PAGER=less
 PAGER=lv
 SVN_EDITOR=vim
 export SVN_EDITOR
@@ -36,9 +35,6 @@ alias -g H="| head"
 alias -g T="| tail"
 alias -g X="| xargs"
 alias -g V="| vim -R -"
-
-# for mysql
-#alias MYSQLCOM=/Library/StartupItems/MySQLCOM/MySQLCOM
 
 # prompt
 # fix ssh env
@@ -63,10 +59,8 @@ precmd () {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
-
 # バージョン管理されているディレクトリにいれば表示，そうでなければ非表示
 #RPROMPT="%1(v|%F{green}%1v%f|)"
-
 autoload -U colors
 colors
 local LPCOLOR='%{%(!.$fg[red].$fg[cyan])%}'
@@ -75,9 +69,8 @@ local LPCOLOR='%{%(!.$fg[red].$fg[cyan])%}'
     
 local RPCOLOR='%{$fg[green]%}'
 local DEFAULT=%{$reset_color%}
+# 左右プロンプトの定義
 PROMPT=$LPCOLOR'[${USER}@${HOST%%.*}] %(!.#.$) '$DEFAULT
-#PROMPT=$LPCOLOR'[`whoami`@`hostname`] %(!.#.$) '$DEFAULT
-#RPROMPT=$RPCOLOR'[%~]'$DEFAULT
 RPROMPT=$RPCOLOR'%T[%~]'$DEFAULT
 RPROMPT=%1(v|%F{blue}%1v%f|)$RPCOLOR'%T[%~]'$DEFAULT
 setopt prompt_subst
@@ -141,7 +134,8 @@ setopt brace_ccl
 setopt equals
 
 # ファイル名で #, ~, ^ の 3 文字を正規表現として扱う
-setopt extended_glob
+# (Gitが使いにくくなる)
+#setopt extended_glob
 
 # zsh の開始・終了時刻をヒストリファイルに書き込む
 #setopt extended_history
@@ -204,7 +198,7 @@ setopt print_eightbit
 #setopt print_exit_value
 
 # ディレクトリスタックに同じディレクトリを追加しないようになる
-#setopt pushd_ignore_dups
+#setopt pushd_ignore_dps
 
 # pushd を引数なしで実行した場合 pushd $HOME と見なされる
 #setopt pushd_to_home
@@ -237,7 +231,8 @@ setopt hist_no_store
 unsetopt promptcr
 
 #   コピペの時rpromptを非表示する
-#setopt transient_rprompt
+setopt transient_rprompt
 
 #  cd -[tab] でpushd
 setopt autopushd
+
