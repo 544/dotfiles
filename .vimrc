@@ -316,7 +316,7 @@ set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
 "編集中のファイルのあるディレクトリに移動
-au BufEnter * exec ':lcd %:p:h'
+"au BufEnter * exec ':lcd %:p:h'
 
 "TOhtmlコマンドの設定
 "let g:html_number_lines = 0
@@ -382,6 +382,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
 NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-fugitive'
 
 filetype plugin indent on     " Required!
 filetype indent on
