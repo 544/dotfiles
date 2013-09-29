@@ -1,0 +1,21 @@
+メモ
+
+・移動
+たくさん移動
+CTRL-f => Scroll down
+CTRL-b => Scroll up
+描画関連
+zz => カレント行を中心に
+
+・編集
+今いる単語の末尾に追記
+ea => e:単語末,a:入力
+コピペ
+:set paste => ペースト時に余計なこと（インデントとか）をしない。
+
+・バッファ操作
+:buffers => バッファ一覧
+:b(uffer) 9 => 9番目のバッファを開く
+
+・split操作
+:split [FILENAME] => ファイル名

@@ -557,15 +557,12 @@ endfunction
 
 "memo
 function! Memo()
-  if has('win32')
-    if hostname() ==? 'LUNA'
-      :tabnew D:/memo.lst
-    else
-      :tabnew C:/memo.lst
-    endif
-  else
-    :tabnew ~/memo.lst
-  endif
+	if has('win32')
+		let $memofile = C:/memo.lst
+	else
+		let $memofile = '~/.vim/memo.lst'
+	endif
+	:tabnew $memofile
 endf
 command! Memo :call Memo()
 
