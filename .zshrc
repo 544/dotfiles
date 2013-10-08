@@ -2,6 +2,8 @@
 #
 # for Vim
 export VIMHOME=~/.vim/
+# for ctags
+alias ctags=/usr/local/Cellar/ctags/5.8/bin/ctags
 
 #文字コードの設定
 LANG=ja_JP.UTF-8
@@ -37,6 +39,14 @@ alias -g H="| head"
 alias -g T="| tail"
 alias -g X="| xargs"
 alias -g V="| vim -R -"
+
+# add cpanm
+# use cpanm App::highlight
+export PERL_LOCAL_LIB_ROOT=~/perl5
+export PERL_MB_OPT="--install_base /Users/masato/perl5"
+export PERL5LIB=~/perl5/lib/perl5
+export PATH=~/perl5/bin:$PATH
+alias -g H="| highlight"
 
 # prompt
 # fix ssh env
