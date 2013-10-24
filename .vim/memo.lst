@@ -1,5 +1,57 @@
 メモ
 
+- 10M1W
+
+- 環境
+QA
+ gwdev5522
+ gwdev5780
+MST
+ gwdev5764
+
+
+- データロード手順
+ MST環境ログイン
+ git st
+  -> csv/tsvの差分がないことを確認。差分があれば周りに確認。
+  -> !!! git pull をしないこと！ローカルファイルが混在してしまう。
+ script2/ffjm/migration/master_admin --dump
+  -> DBに投入されたデータをcsv/tsvにダンプ
+ git st
+  -> 更新対象のテーブルのcsv/tsvができていることを確認
+ git diff --word-diff script2/ffjm/migration/master/ffjm_*.tsv
+  -> 変更内容が妥当であることを確認
+ git add / git commit --author=tsukagoshi
+  -> 変更差分をコミット
+  -> authorをつけること。
+ git push (git pull --rebase)
+  -> ローカル変更を全てコミットしたらpullしても大丈夫。
+ script2/ffjm/devtool/update_remote.sh
+  -> QA環境の更新
+ ( script2/ffjm/migration/master_admin --load ) 
+  -> 必要であれば、各環境でデータをロード
+
+
+- snippets
+- デバッグ分
+	#TODO:tsukagoshi
+	use Data::Dumper;
+	Ffjm::Debug::log("$_::LOG_DIR/tsukagoshi", Dumper $event->model->team_mission->default);
+
+
+	#TODO:tsukagoshi - eve53終了後に削除
+	if ($event->event_id() == 53) {
+		if ($event->conf->period('month_start')) {
+			# ガチャ訴求用ページを見ていない場合は、リダイレクト
+			if( $event->logic->gacha->is_redirect_gacha_appeal($user_id) ) {
+				DA::commit;
+				$event->logic->gacha->redirect_gacha_appeal();
+				return;
+			}
+		}
+	}
+
+[VI memo]
 ・移動
 たくさん移動
 CTRL-f => Scroll down
@@ -19,3 +71,4 @@ ea => e:単語末,a:入力
 
 ・split操作
 :split [FILENAME] => ファイル名
+
