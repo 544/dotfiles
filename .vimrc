@@ -137,7 +137,8 @@ if &encoding !=# 'utf-8'
   set fileencoding=japan
 endif
 if has('iconv')
-  let s:enc_euc = 'euc-jp'
+  "let s:enc_euc = 'euc-jp'
+  let s:enc_euc = 'utf-8'
   let s:enc_jis = 'iso-2022-jp'
   " iconvがeucJP-msに対応しているかをチェック
   if iconv("¥x87¥x64¥x87¥x6a", 'cp932', 'eucjp-ms') ==# "¥xad¥xc5¥xad¥xcb"
@@ -218,11 +219,11 @@ let &directory = s:backup_dir
 "操作関係
 set scrolloff=10    "スクロール時に表示を5行確保
 
-"Ctrl+上下で5行ずつ移動
-map <C-Up> <Up><Up><Up><Up><Up>
-imap <C-Up> <Up><Up><Up><Up><Up>
-map <C-Down> <Down><Down><Down><Down><Down>
-imap <C-Down> <Down><Down><Down><Down><Down>
+"Ctrl+jkで5行ずつ移動
+map <C-k> <Up><Up><Up><Up><Up>
+imap <C-k> <Up><Up><Up><Up><Up>
+map <C-j> <Down><Down><Down><Down><Down>
+imap <C-j> <Down><Down><Down><Down><Down>
 
 "表示行単位で移動
 noremap j gj
