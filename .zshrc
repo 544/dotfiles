@@ -20,6 +20,7 @@ EDITOR=vim
 alias ll='ls -laG'
 alias lR='ls -laRG'
 alias rm='rm -i'
+alias hl='highlight'
 
 # alias for git
 alias gs='git status'
@@ -39,6 +40,7 @@ alias -g H="| head"
 alias -g T="| tail"
 alias -g X="| xargs"
 alias -g V="| vim -R -"
+alias -g HL="| highlight"
 
 # add cpanm
 # use cpanm App::highlight
