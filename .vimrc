@@ -386,6 +386,15 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://github.com/Shougo/unite.vim'
 
+NeoBundle "https://github.com/kana/vim-operator-user"
+NeoBundle "https://github.com/osyo-manga/vim-operator-search"
+NeoBundle "https://github.com/kana/vim-textobj-user"
+NeoBundle "https://github.com/kana/vim-textobj-function"
+" 関数内の検索を行う
+" " require - https://github.com/kana/vim-textobj-function
+" nmap <Space>s <Plug>(operator-search)
+" nmap <Space>/ <Plug>(operator-search)if
+
 filetype plugin indent on     " Required!
 filetype indent on
 syntax on
