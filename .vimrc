@@ -326,6 +326,7 @@ NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://github.com/Shougo/unite.vim'
+NeoBundle 'https://github.com/h1mesuke/unite-outline'
 
 filetype plugin indent on     " Required!
 filetype indent on
@@ -469,6 +470,7 @@ nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 noremap <C-U><C-R>    :Unite file_mru<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 noremap <C-U><C-U>    :     Unite file_mru buffer<CR>
+noremap <C-U><C-O>    :Unite -vertical -winwidth=30 outline -no-quit<CR>
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
