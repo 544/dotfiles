@@ -302,9 +302,6 @@ set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
 " =========== for NeoBundle
-"
-set nocompatible               " Be iMproved
-
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -354,9 +351,9 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Enable heavy features.
 " Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -456,38 +453,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-" setting for nerdtree
-" 引数なしで実行したとき、NERDTreeを実行する
-"How can I open a NERDTree automatically when vim starts up if no files were specified?
-autocmd vimenter * if !argc() | NERDTree | endif
-""How can I close vim if the only window left open is a NERDTree?
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" カーソルが外れているときは自動的にnerdtreeを隠す
-function! ExecuteNERDTree()
-    "b:nerdstatus = 1 : NERDTree 表示中
-    "b:nerdstatus = 2 : NERDTree 非表示中
- 
-    if !exists('g:nerdstatus')
-        execute 'NERDTree ./'
-        let g:windowWidth = winwidth(winnr())
-        let g:nerdtreebuf = bufnr('')
-        let g:nerdstatus = 1 
- 
-    elseif g:nerdstatus == 1 
-        execute 'wincmd t'
-        execute 'vertical resize' 0 
-        execute 'wincmd p'
-        let g:nerdstatus = 2 
-    elseif g:nerdstatus == 2 
-        execute 'wincmd t'
-        execute 'vertical resize' g:windowWidth
-        let g:nerdstatus = 1 
- 
-    endif
-endfunction
-noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
 
 "==== for unite
 "" Unite
