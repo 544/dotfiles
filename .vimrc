@@ -46,10 +46,7 @@ vnoremap /r "xy:%s/<C-R>=escape(@x, '¥¥/.*$^~[]')<CR>//gc<Left><Left><Left>
 
 "表示関係
 set number       "行番号表示
-"set ruler        "ルーラー表示(ステータスライン変えてるから意味ない)
 set title        "ウィンドウのタイトルを書き換える
-
-"カレントウィンドウのみカーソル行をハイライト
 set cursorline   "カーソル行を強調表示
 
 "カーソル下の文字コード
@@ -101,9 +98,9 @@ endfunc
 
 "ステータスライン関係
 set laststatus=2 "ステータスラインを常に表示
-"set statusline=%y=[%{&fileencoding}][¥%{&fileformat}]¥ %F%m%r%=<%c:%l>
+set statusline=%y=[%{&fileencoding}][\%{&fileformat}]\ %F%m%r%=<%c:%l>
 "ファイルパス [filetype][fenc][ff]    桁(ASCII=10進数,HEX=16進数) 行/全体(位置)[修正フラグ]
-"set statusline=%<%F¥ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%{Getb()},HEX=%{GetB()})¥ %l/%L(%P)%m
+set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%{Getb()},HEX=%{GetB()})\ %l/%L(%P)%m
 
 "エンコーディング関係
 set fileformat=unix
@@ -208,6 +205,9 @@ let &directory = s:backup_dir
 
 "操作関係
 set scrolloff=10    "スクロール時に表示を5行確保
+
+" 行折り返し \w
+nnoremap <Leader>w  :set wrap!<CR>
 
 "Ctrl+jkで5行ずつ移動
 map <C-k> <Up><Up><Up><Up><Up>
