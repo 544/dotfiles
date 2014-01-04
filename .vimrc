@@ -460,10 +460,18 @@ let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+noremap <C-U><C-Y>    :     Unite -buffer-name=register register<CR>
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+noremap  <C-U><C-B>   :Unite buffer<CR>
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+noremap  <C-U><C-F>   :     UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+noremap <C-U><C-R>    :Unite file_mru<CR>
 nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+noremap <C-U><C-U>    :     Unite file_mru buffer<CR>
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 "========== 各言語での実行
 "for perl
