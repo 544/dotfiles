@@ -1,20 +1,16 @@
 "全般
-set nocompatible
+set nocompatible "vi互換モードをオフ
 set shellslash   "パス区切りをスラッシュにする
-set lazyredraw
+set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
-set t_Co=256
-"colorscheme darkblue  " 色テーマ
+set t_Co=256     "256色ターミナル対応
+colorscheme darkblue  " 色テーマ
 
 "Tab関係
-"tabstop(ts) Tab文字を画面上で何文字に展開するか
-set tabstop=4
-"shiftwidth(sw) インデントの幅
-set shiftwidth=4
-"softtabstop(sts) Tabキーを押したときに挿入される空白の量
-set softtabstop=0
-"expandtab(et) Tab文字を空白に展開
-"set expandtab
+set tabstop=4 "tabstop(ts) Tab文字を画面上で何文字に展開するか
+set shiftwidth=4 "shiftwidth(sw) インデントの幅
+set softtabstop=0 "softtabstop(sts) Tabキーを押したときに挿入される空白の量
+"set expandtab "expandtab(et) Tab文字を空白に展開
 
 "入力関係
 set backspace=indent,eol,start  "BSでなんでも消せるようにする
@@ -54,13 +50,7 @@ set number       "行番号表示
 set title        "ウィンドウのタイトルを書き換える
 
 "カレントウィンドウのみカーソル行をハイライト
-"autocmd WinEnter * setlocal cursorline
-"autocmd WinLeave * setlocal nocursorline
 set cursorline   "カーソル行を強調表示
-
-"特殊文字(SpecialKey)の見える化
-"set list
-"set listchars=tab:>.,trail:_,nbsp:%,extends:>,precedes:<
 
 "カーソル下の文字コード
 "http://vimwiki.net/?tips%2F98
@@ -121,16 +111,16 @@ set fileformats=unix,dos,mac
 set encoding=utf-8
 set fileencoding=euc-jp
 
-"if has('win32')
-"  set encoding=cp932
-"  set fileencoding=utf-8
-"  set fileencodings=iso-2022-jp,euc-jp,utf-8,utf-16,ucs-2-internal,ucs-2
-"else
-"  set encoding=utf-8
-"  set termencoding=utf-8
-"  set fileencoding=utf-8
-"  set fileencodings=iso-2022-jp,cp932,euc-jp,utf-16,ucs-2-internal,ucs-2
-"endif
+if has('win32')
+  set encoding=cp932
+  set fileencoding=utf-8
+  set fileencodings=iso-2022-jp,euc-jp,utf-8,utf-16,ucs-2-internal,ucs-2
+else
+  set encoding=utf-8
+  set termencoding=utf-8
+  set fileencoding=utf-8
+  set fileencodings=iso-2022-jp,cp932,euc-jp,utf-16,ucs-2-internal,ucs-2
+endif
 
 "文字コードの自動認識
 "http://www.kawaz.jp/pukiwiki/?vim#content_1_7
@@ -310,16 +300,8 @@ map <silent> [Tag]n :tabnext<CR>
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
-"マウス関係
-"マウス操作ができるようになるが、操作性がイマイチ
-"set mouse=a
-"set ttymouse=xterm2
-
 set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
-
-"編集中のファイルのあるディレクトリに移動
-"au BufEnter * exec ':lcd %:p:h'
 
 "TOhtmlコマンドの設定
 "let g:html_number_lines = 0
@@ -328,36 +310,6 @@ let g:html_use_css = 1
 "let g:html_no_pre = 0
 "let g:html_use_encoding = 'utf8'
 let g:html_use_xhtml = 1
-
-
-"========== プラグイン設定 ==========
-
-"matchit
-:source $VIMRUNTIME/macros/matchit.vim
-
-"smooth-scroll.vim
-"http://www.vim.org/scripts/script.php?script_id=1601
-nmap <PageDown> <C-F>
-nmap <PageUp> <C-B>
-
-"evalbuffer.vim
-"http://eureka.pasela.org/
-vmap <silent> <F10> :<C-u>EvalBuffer<CR>
-"nmap <silent> <F10> mzggVG<F10>`z
-nmap <silent> <F10> :<C-u>EvalBuffer<CR>
-map  <silent> <S-F10> :<C-u>pc<CR>
-
-"bwTemplate.vim
-"http://www.vim.org/scripts/script.php?script_id=1411
-if has('win32')
-  let g:bwTemplateDir=substitute($VIM . '\vimfiles\templates\', '\', '/', 'g')
-else
-  let g:bwTemplateDir=$HOME . '/.vim/templates/'
-endif
-let g:bwTemplate_author='Yuki'
-let g:bwTemplate_email='paselan at Gmail.com'
-nnoremap <unique> <F4> :<C-u>WTemplate<CR>
-nnoremap <unique> <S-F4> :<C-u>WTemplateList<CR>
 
 " =========== for NeoBundle
 "
@@ -387,11 +339,11 @@ NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://github.com/Shougo/unite.vim'
-
 NeoBundle "https://github.com/kana/vim-operator-user"
 NeoBundle "https://github.com/osyo-manga/vim-operator-search"
 NeoBundle "https://github.com/kana/vim-textobj-user"
 NeoBundle "https://github.com/kana/vim-textobj-function"
+
 " 関数内の検索を行う
 " " require - https://github.com/kana/vim-textobj-function
 " nmap <Space>s <Plug>(operator-search)
@@ -556,6 +508,16 @@ function! ExecuteNERDTree()
 endfunction
 noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
 
+"==== for unite
+"" Unite
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 200
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 "========== 各言語での実行
 "for perl
@@ -564,6 +526,11 @@ nmap <F8> :Perl<CR>
 function! s:Perl()
 	:w
 		:!perl %
+endfunction
+nmap <F5> :Perlc<CR>
+function! s:Perlc()
+	:w
+		:!perl -c %
 endfunction
 
 "========== プライベートな拡張 ==========
@@ -578,53 +545,5 @@ function! Memo()
 	:tabnew $memofile
 endf
 command! Memo :call Memo()
-
-"日付挿入
-function! InsertCDate(format)
-  let old_lc_time = v:lc_time
-  try
-    exec ':silent! lang time C'
-    let datetime = strftime(a:format)
-    return datetime
-  finally
-    exec ':silent! lang time ' . old_lc_time
-  endtry
-endf
-"YYYY-MM-DD HH:MM:SS
-inoremap <Leader>date <C-R>=InsertCDate('%Y-%m-%d %H:%M:%S')<CR>
-nnoremap <Leader>date i<C-R>=InsertCDate('%Y-%m-%d %H:%M:%S')<CR><ESC>
-vnoremap <Leader>date s<C-R>=InsertCDate('%Y-%m-%d %H:%M:%S')<CR><ESC>
-"RFC2822(WDay, DD Month YYYY HH:MM:SS +-Timezone)
-if has('win32')
-  "Windowsの%zは「東京 (標準時)」とか返してきて+0900が得られない……
-  inoremap <Leader>dt822 <C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S +0900')<CR>
-  nnoremap <Leader>dt822 i<C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S +0900')<CR><ESC>
-  vnoremap <Leader>dt822 s<C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S +0900')<CR><ESC>
-else
-  inoremap <Leader>dt822 <C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S %z')<CR>
-  nnoremap <Leader>dt822 i<C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S %z')<CR><ESC>
-  vnoremap <Leader>dt822 s<C-R>=InsertCDate('%a, %d %b %Y %H:%M:%S %z')<CR><ESC>
-endif
-
-"HTML整形
-function! HTMLFormat()
-  let l:reg_slash = @/
-  exec '%s/></>\r</g'
-  normal! ggVG=
-  let @/ = l:reg_slash
-endf
-command! HTMLFormat :call HTMLFormat()
-
-"ファイル末尾に改行を付けずに保存
-function! WriteNoEOL()
-  let l:old_bin = &binary
-  let l:old_eol = &endofline
-  set binary
-  set noendofline
-  exec ':w'
-  let &binary = l:old_bin
-  let &endofline = l:old_eol
-endf
-command! WriteNoEOL :call WriteNoEOL()
 
 " ==== END SETTING
