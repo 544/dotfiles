@@ -24,13 +24,13 @@ set wildmode=list:longest
 set completeopt=menu,preview,menuone
 
 "補完候補を出したまま改行できるようにする
-"inoremap <expr> <CR> pumvisible() ? "¥<C-Y>¥<CR>" : "¥<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>" : "\<CR>"
 "Enterで補完決定にする
-"inoremap <expr> <CR> pumvisible() ? "¥<C-Y>" : "¥<C-G>u¥<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<C-G>u\<CR>"
 "ESCで補完キャンセルして元のテキストに戻す  ※.gvimrcで<ESC>を上書きしてるので動かない
-"inoremap <expr> <ESC> pumvisible() ? "¥<C-E>" : "¥<ESC>"
+"inoremap <expr> <ESC> pumvisible() ? "\<C-E>" : "\<ESC>"
 "インクリメンタルに候補を絞り込み、Enterで決定
-"inoremap <expr> <C-N> pumvisible() ? "¥<lt>C-N>" : "¥<C-N>¥<C-R>=pumvisible() ? ¥"¥¥<lt>Down>¥" : ¥"¥"¥<lt>CR>"
+"inoremap <expr> <C-N> pumvisible() ? "\<lt>C-N>" : "\<C-N>\<C-R>=pumvisible() ? \"\\<lt>Down>\" : \"\"\<lt>CR>"
 
 "検索関係
 set incsearch    "インクリメンタルサーチ
@@ -40,9 +40,9 @@ set smartcase    "大文字で始めたら大文字小文字を区別する
 set hlsearch     "検索文字をハイライト表示
 
 "選択した文字列を検索
-vnoremap <silent> // y/<C-R>=escape(@", '¥¥/.*$^~[]')<CR><CR>
+vnoremap <silent> // y/<C-R>=escape(@", '\\/.*$^~[]')<CR><CR>
 "選択した文字列を置換
-vnoremap /r "xy:%s/<C-R>=escape(@x, '¥¥/.*$^~[]')<CR>//gc<Left><Left><Left>
+vnoremap /r "xy:%s/<C-R>=escape(@x, '\\/.*$^~[]')<CR>//gc<Left><Left><Left>
 
 "表示関係
 set number       "行番号表示
@@ -101,14 +101,16 @@ endfunc
 
 "ステータスライン関係
 set laststatus=2 "ステータスラインを常に表示
-"set statusline=%y=[%{&fileencoding}][¥%{&fileformat}]¥ %F%m%r%=<%c:%l>
+"set statusline=%y=[%{&fileencoding}][\%{&fileformat}]\ %F%m%r%=<%c:%l>
 "ファイルパス [filetype][fenc][ff]    桁(ASCII=10進数,HEX=16進数) 行/全体(位置)[修正フラグ]
-"set statusline=%<%F¥ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%{Getb()},HEX=%{GetB()})¥ %l/%L(%P)%m
+"set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%{Getb()},HEX=%{GetB()})\ %l/%L(%P)%m
 
 "エンコーディング関係
 set fileformat=unix
 set fileformats=unix,dos,mac
 set encoding=utf-8
+set fileencoding=euc-jp
+
 if has('win32')
   set encoding=cp932
   set fileencoding=utf-8
@@ -127,15 +129,15 @@ if &encoding !=# 'utf-8'
   set fileencoding=japan
 endif
 if has('iconv')
-  "let s:enc_euc = 'euc-jp'
-  let s:enc_euc = 'utf-8'
+  let s:enc_euc = 'euc-jp'
+  "let s:enc_euc = 'utf-8'
   let s:enc_jis = 'iso-2022-jp'
   " iconvがeucJP-msに対応しているかをチェック
-  if iconv("¥x87¥x64¥x87¥x6a", 'cp932', 'eucjp-ms') ==# "¥xad¥xc5¥xad¥xcb"
+  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
     let s:enc_euc = 'eucjp-ms'
     let s:enc_jis = 'iso-2022-jp-3'
   " iconvがJISX0213に対応しているかをチェック
-  elseif iconv("¥x87¥x64¥x87¥x6a", 'cp932', 'euc-jisx0213') ==# "¥xad¥xc5¥xad¥xcb"
+  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
     let s:enc_euc = 'euc-jisx0213'
     let s:enc_jis = 'iso-2022-jp-3'
   endif
@@ -148,7 +150,7 @@ if has('iconv')
   else
     let &fileencodings = &fileencodings .','. s:enc_jis
     set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^¥(euc-jp¥|euc-jisx0213¥|eucjp-ms¥)$'
+    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
       set fileencodings+=cp932
       set fileencodings-=euc-jp
       set fileencodings-=euc-jisx0213
@@ -166,7 +168,7 @@ endif
 " 日本語を含まない場合は fileencoding に encoding を使うようにする
 if has('autocmd')
   function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^¥x01-¥x7e]", 'n') == 0
+    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
       let &fileencoding=&encoding
     endif
   endfunction
@@ -301,6 +303,14 @@ map <silent> [Tag]p :tabprevious<CR>
 set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
+"TOhtmlコマンドの設定
+"let g:html_number_lines = 0
+"let g:html_ignore_folding = 1
+let g:html_use_css = 1
+"let g:html_no_pre = 0
+"let g:html_use_encoding = 'utf8'
+let g:html_use_xhtml = 1
+
 " =========== for NeoBundle
 "
 set nocompatible               " Be iMproved
@@ -329,6 +339,15 @@ NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'https://github.com/Shougo/unite.vim'
+NeoBundle "https://github.com/kana/vim-operator-user"
+NeoBundle "https://github.com/osyo-manga/vim-operator-search"
+NeoBundle "https://github.com/kana/vim-textobj-user"
+NeoBundle "https://github.com/kana/vim-textobj-function"
+
+" 関数内の検索を行う
+" " require - https://github.com/kana/vim-textobj-function
+" nmap <Space>s <Plug>(operator-search)
+" nmap <Space>/ <Plug>(operator-search)if
 
 filetype plugin indent on     " Required!
 filetype indent on
