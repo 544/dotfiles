@@ -468,8 +468,8 @@ nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 noremap  <C-U><C-F>   :     UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 noremap <C-U><C-R>    :Unite file_mru<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-noremap <C-U><C-U>    :     Unite file_mru buffer<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer bookmark<CR>
+noremap <C-U><C-U>    :     Unite file_mru buffer bookmark<CR>
 noremap <C-U><C-O>    :Unite -vertical -winwidth=30 outline -no-quit<CR>
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
