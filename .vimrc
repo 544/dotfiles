@@ -328,6 +328,7 @@ NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
+NeoBundle 'itchyny/lightline.vim'
 
 filetype plugin indent on     " Required!
 filetype indent on
@@ -464,6 +465,40 @@ nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
+
+" for lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+      \ },
+      \ 'component_function' : {
+      \	  'filename': 'MyFileName', 
+      \ }, 
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ }
+
+function! MyFileName()
+    if '' != expand('%:p')
+        if stridx(expand('%:p'), expand('~')) == 0
+            return substitute(expand('%:p'), expand('~'), '~', '')
+        else
+            return substitute(expand('%:p'))
+        endif
+    else
+        return '[No Name]'
+    endif
+endfunction
 
 "========== 各言語での実行
 "for perl
