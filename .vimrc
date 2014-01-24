@@ -298,6 +298,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'gregsexton/gitv'
 
 filetype plugin indent on     " Required!
 filetype indent on
