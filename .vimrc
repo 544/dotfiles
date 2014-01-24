@@ -323,7 +323,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
 NeoBundle 'https://github.com/Shougo/neosnippet.vim'
-"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'tpope/vim-fugitive' # cant install bundle...
 NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
@@ -455,6 +455,15 @@ noremap <C-U><C-O>    :Unite -vertical -winwidth=30 outline -no-quit<CR>
 " ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+
+" for vim-fugitive
+nnoremap <Space>gd :<C-u>Gdiff<Enter>
+nnoremap <Space>gs :<C-u>Gstatus<Enter>
+nnoremap <Space>gl :<C-u>Glog<Enter>
+nnoremap <Space>ga :<C-u>Gwrite<Enter>
+nnoremap <Space>gc :<C-u>Gcommit<Enter>
+nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
+nnoremap <Space>gb :<C-u>Gblame<Enter>
 
 "========== 各言語での実行
 "for perl
