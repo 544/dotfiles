@@ -5,9 +5,6 @@ set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
 set t_Co=256     "256色ターミナル対応
 colorscheme darkblue  " 色テーマ
-
-"Tab関係
-set tabstop=4 "tabstop(ts) Tab文字を画面上で何文字に展開するか
 set shiftwidth=4 "shiftwidth(sw) インデントの幅
 set softtabstop=0 "softtabstop(sts) Tabキーを押したときに挿入される空白の量
 "set expandtab "expandtab(et) Tab文字を空白に展開
@@ -95,12 +92,6 @@ func! String2Dec(str)
   endwhile
   return out
 endfunc
-
-"ステータスライン関係
-set laststatus=2 "ステータスラインを常に表示
-set statusline=%y=[%{&fileencoding}][\%{&fileformat}]\ %F%m%r%=<%c:%l>
-"ファイルパス [filetype][fenc][ff]    桁(ASCII=10進数,HEX=16進数) 行/全体(位置)[修正フラグ]
-set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%{Getb()},HEX=%{GetB()})\ %l/%L(%P)%m
 
 "エンコーディング関係
 set fileformat=unix
@@ -467,15 +458,7 @@ let g:lightline = {
       \ }
 
 function! MyFileName()
-    if '' != expand('%:p')
-        if stridx(expand('%:p'), expand('~')) == 0
-            return substitute(expand('%:p'), expand('~'), '~', '')
-        else
-            return substitute(expand('%:p'))
-        endif
-    else
-        return '[No Name]'
-    endif
+	return expand('%:p')
 endfunction
 
 "========== 各言語での実行
