@@ -436,6 +436,7 @@ nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
+nnoremap <Space>gv :<C-u>Gitv<Enter>
 
 " for lightline
 let g:lightline = {
