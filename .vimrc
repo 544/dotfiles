@@ -8,6 +8,7 @@ colorscheme darkblue  " 色テーマ
 set shiftwidth=4 "shiftwidth(sw) インデントの幅
 set softtabstop=0 "softtabstop(sts) Tabキーを押したときに挿入される空白の量
 "set expandtab "expandtab(et) Tab文字を空白に展開
+set laststatus=2 "ステータスラインを常に表示
 
 "入力関係
 set backspace=indent,eol,start  "BSでなんでも消せるようにする
