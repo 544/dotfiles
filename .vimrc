@@ -473,6 +473,7 @@ function! s:Perl()
 	:w
 		:!perl %
 endfunction
+command! Perlc call s:Perlc()
 nmap <F5> :Perlc<CR>
 function! s:Perlc()
 	:w
