@@ -1,5 +1,8 @@
 ƒƒ‚
 
+" sÜ‚è•Ô‚µ \w
+nnoremap <Leader>w  :set wrap!<CR>
+
 - 10M1W
 
 - ŠÂ‹«
