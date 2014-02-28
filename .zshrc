@@ -3,7 +3,7 @@
 # for Vim
 export VIMHOME=~/.vim/
 # for ctags
-alias ctags=/usr/local/Cellar/ctags/5.8/bin/ctags
+#alias ctags=/usr/local/Cellar/ctags/5.8/bin/ctags
 
 #文字コードの設定
 LANG=ja_JP.UTF-8

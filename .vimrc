@@ -295,16 +295,32 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
 NeoBundle 'https://github.com/Shougo/neosnippet.vim'
 "NeoBundle 'tpope/vim-fugitive' # cant install bundle...
-NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
+NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
-NeoBundle 'itchyny/lightline.vim'
+
+"for vimshell
+" vimsehll
+let g:vimshell_interactive_update_time = 10
+let g:vimshell_prompt = $USER."% "
+" vimshell map
+nmap vs :VimShell<CR>
+nmap vp :VimShellPop<CR>
+
+
+" for git
+NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
+
+NeoBundle 'itchyny/lightline.vim' " ステータスライン
+" 部分検索用
 NeoBundle "https://github.com/kana/vim-operator-user"
 NeoBundle "https://github.com/osyo-manga/vim-operator-search"
 NeoBundle "https://github.com/kana/vim-textobj-user"
 NeoBundle "https://github.com/kana/vim-textobj-function"
+
+NeoBundle 'majutsushi/tagbar'
 
 " 関数内の検索を行う
 " require - https://github.com/kana/vim-textobj-function
@@ -476,18 +492,23 @@ endfunction
 
 "========== 各言語での実行
 "for perl
-command! Perl call s:Perl()
-nmap <F8> :Perl<CR>
-function! s:Perl()
-	:w
-		:!perl %
-endfunction
-command! Perlc call s:Perlc()
-nmap <F5> :Perlc<CR>
-function! s:Perlc()
-	:w
-		:!perl -c %
-endfunction
+" perlファイルを開いた時だけにしたい。
+"command! Perl call s:Perl()
+"nmap <F8> :Perl<CR>
+"function! s:Perl()
+"	:w
+"		:!perl %
+"endfunction
+"command! Perlc call s:Perlc()
+"nmap <F5> :Perlc<CR>
+"function! s:Perlc()
+"	:w
+"		:!perl -c %
+"endfunction
+
+" for scala
+autocmd FileType scala :compiler scalac
+autocmd QuickFixCmdPost make if len(getqflist()) != 0 | copen | endif
 
 "========== プライベートな拡張 ==========
 
