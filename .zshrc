@@ -8,6 +8,7 @@ export VIMHOME=~/.vim/
 #文字コードの設定
 LANG=ja_JP.UTF-8
 export LANG
+export JAVA_OPTS='-Dfile.encoding=UTF-8' # MacのJavaVMはデフォルトSJIS
 
 # その他環境変数
 export SHELL=/bin/zsh
