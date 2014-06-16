@@ -329,7 +329,6 @@ nmap <Space>/ <Plug>(operator-search)if
 
 filetype plugin indent on     " Required!
 filetype indent on
-syntax on
 
 " Installation check.
 NeoBundleCheck
