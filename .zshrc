@@ -90,6 +90,15 @@ RPROMPT=$RPCOLOR'%T[%~]'$DEFAULT
 RPROMPT=%1(v|%F{blue}%1v%f|)$RPCOLOR'%T[%~]'$DEFAULT
 setopt prompt_subst
 
+# タイトル変更
+case "${TERM}" in
+kterm*|xterm)
+    precmd() {
+        echo -ne "\033]0;${USER}@${HOST}\007"
+    }
+    ;;
+esac 
+
 # キャッシュの設定
 if [ -d ~/.zsh/cache ]; then
     zstyle ':completion:*' use-cache yes
