@@ -3,13 +3,23 @@ set nocompatible "vi互換モードをオフ
 set shellslash   "パス区切りをスラッシュにする
 set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
+
+"表示関係 {{{1
 set t_Co=256     "256色ターミナル対応
 colorscheme darkblue  " 色テーマ
+set laststatus=2 "ステータスラインを常に表示
+
+set tabstop=4    " タブは4スペース
 set shiftwidth=4 "shiftwidth(sw) インデントの幅
 set softtabstop=0 "softtabstop(sts) Tabキーを押したときに挿入される空白の量
-set tabstop=4
-"set expandtab "expandtab(et) Tab文字を空白に展開
-set laststatus=2 "ステータスラインを常に表示
+
+set number       "行番号表示
+set title        "ウィンドウのタイトルを書き換える
+set cursorline   "カーソル行を強調表示
+
+syntax on           "シンタックスハイライト
+filetype indent on  "ファイルタイプによるインデントを行う
+filetype plugin on  "ファイルタイプによるプラグインを使う
 
 "入力関係 {{{1
 set backspace=indent,eol,start  "BSでなんでも消せるようにする
@@ -17,19 +27,9 @@ set formatoptions+=mM           "整形オプションにマルチバイト系�
 set autoindent
 set smartindent
 
-"コマンド補完 {{{1
 set wildmenu
 set wildmode=list:longest
 set completeopt=menu,preview,menuone
-
-"補完候補を出したまま改行できるようにする
-"inoremap <expr> <CR> pumvisible() ? "¥<C-Y>¥<CR>" : "¥<CR>"
-"Enterで補完決定にする
-"inoremap <expr> <CR> pumvisible() ? "¥<C-Y>" : "¥<C-G>u¥<CR>"
-"ESCで補完キャンセルして元のテキストに戻す  ※.gvimrcで<ESC>を上書きしてるので動かない
-"inoremap <expr> <ESC> pumvisible() ? "¥<C-E>" : "¥<ESC>"
-"インクリメンタルに候補を絞り込み、Enterで決定
-"inoremap <expr> <C-N> pumvisible() ? "¥<lt>C-N>" : "¥<C-N>¥<C-R>=pumvisible() ? ¥"¥¥<lt>Down>¥" : ¥"¥"¥<lt>CR>"
 
 "検索関係 {{{1
 set incsearch    "インクリメンタルサーチ
@@ -43,12 +43,7 @@ vnoremap <silent> // y/<C-R>=escape(@", '¥¥/.*$^~[]')<CR><CR>
 "選択した文字列を置換
 vnoremap /r "xy:%s/<C-R>=escape(@x, '¥¥/.*$^~[]')<CR>//gc<Left><Left><Left>
 
-"表示関係
-set number       "行番号表示
-set title        "ウィンドウのタイトルを書き換える
-set cursorline   "カーソル行を強調表示
-
-"カーソル下の文字コード
+"カーソル下の文字コードを表示 {{{
 "http://vimwiki.net/?tips%2F98
 function! Getb()
   let c = matchstr(getline('.'), '.', col('.') - 1)
@@ -94,8 +89,10 @@ func! String2Dec(str)
   endwhile
   return out
 endfunc
+"}}}
 
 "エンコーディング関係 {{{1
+
 set fileformat=unix
 set fileformats=unix,dos,mac
 set encoding=utf-8
@@ -110,7 +107,7 @@ else
   set fileencodings=iso-2022-jp,cp932,euc-jp,utf-16,ucs-2-internal,ucs-2
 endif
 
-"文字コードの自動認識
+"文字コードの自動認識 {{{
 "http://www.kawaz.jp/pukiwiki/?vim#content_1_7
 if &encoding !=# 'utf-8'
   set encoding=japan
@@ -162,6 +159,7 @@ if has('autocmd')
   endfunction
   autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
+"}}}
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
@@ -172,11 +170,6 @@ if exists('&ambiwidth')
     set ambiwidth=double
   endif
 endif
-
-"ファイルタイプ関係 {{{1
-syntax on           "シンタックスハイライト
-filetype indent on  "ファイルタイプによるインデントを行う
-filetype plugin on  "ファイルタイプによるプラグインを使う
 
 "バックアップファイル, スワップファイル {{{1
 set backup
@@ -269,10 +262,9 @@ map <silent> [Tag]n :tabnext<CR>
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
 
-set tags=tags       "タグファイル
 set grepprg=internal "内蔵grepを使う
 
-" =========== for NeoBundle {{{1
+" NeoBundle {{{1
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
@@ -489,7 +481,7 @@ function! MyFileName()
 	return expand('%:p')
 endfunction
 
-" {{{1
+" 言語設定/その他 {{{1
 
 "========== 各言語での実行
 "for perl
@@ -511,8 +503,6 @@ endfunction
 autocmd FileType scala :compiler scalac
 autocmd QuickFixCmdPost make if len(getqflist()) != 0 | copen | endif
 
-"========== プライベートな拡張 ==========
-
 "memo
 function! Memo()
 	if has('win32')
@@ -524,9 +514,7 @@ function! Memo()
 endf
 command! Memo :call Memo()
 
-" ==== END SETTING
-"
-" モードラインを有効にする。
+" モードラインを有効にする。 {{{1
 set modeline
 set modelines=3
 " vim: foldmethod=marker
