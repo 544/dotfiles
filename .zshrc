@@ -21,6 +21,7 @@ EDITOR=vim
 alias ll='ls -laG'
 alias lR='ls -laRG'
 alias rm='rm -i'
+alias h='history'
 alias hl='highlight'
 
 # alias for git
