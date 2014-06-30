@@ -286,6 +286,7 @@ NeoBundle 'Shougo/vimproc', {
       \ }
 NeoBundle 'https://github.com/Shougo/neocomplcache.vim'
 NeoBundle 'https://github.com/Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
 "NeoBundle 'tpope/vim-fugitive' # cant install bundle...
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
