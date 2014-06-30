@@ -446,11 +446,11 @@ au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 
 " for vim-fugitive {{{2
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
+nnoremap <Space>gd :<C-u>Gvdiff<Enter>
 nnoremap <Space>gs :<C-u>Gstatus<Enter>
 nnoremap <Space>gl :<C-u>Glog<Enter>
 nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
+nnoremap <Space>gc :<C-u>Gcommit -v<Enter>
 nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
 nnoremap <Space>gv :<C-u>Gitv<Enter>
