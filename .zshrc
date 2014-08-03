@@ -16,6 +16,8 @@ PAGER=lv
 SVN_EDITOR=vim
 export SVN_EDITOR
 EDITOR=vim
+# Marverics対応。perlのデフォルトバージョンが変わったが必要なライブラリが足りていない？
+export VERSIONER_PERL_VERSION=5.12
 
 #alias
 alias ll='ls -laG'
