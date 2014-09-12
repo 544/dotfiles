@@ -26,6 +26,8 @@ alias rm='rm -i'
 alias h='history'
 alias hl='highlight'
 
+alias sed='gsed' # use gnu-sed (brew install gnu-sed)
+
 # alias for git
 alias gs='git status'
 alias ga='git add'
@@ -53,6 +55,7 @@ export PERL_LOCAL_LIB_ROOT=~/perl5
 export PERL_MB_OPT="--install_base /Users/masato/perl5"
 export PERL5LIB=~/perl5/lib/perl5
 export PATH=~/perl5/bin:$PATH
+export PATH=~/node_modules/coffee-script/bin:$PATH
 alias -g H="| highlight"
 
 # prompt
