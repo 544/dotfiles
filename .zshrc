@@ -46,6 +46,7 @@ alias -g X="| xargs"
 alias -g V="| vim -R -"
 alias -g HL="| highlight"
 
+export PATH=/usr/local/bin:$PATH
 # add cpanm
 # use cpanm App::highlight
 export PERL_LOCAL_LIB_ROOT=~/perl5
