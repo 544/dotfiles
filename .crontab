@@ -1,0 +1,4 @@
+MAILTO="masato.t@gmail.com"
+
+# 水曜日 12:05に更新
+5 12 * * 3 /usr/local/bin/brew update 2>&1 | logger -t brew_update
