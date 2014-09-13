@@ -292,7 +292,12 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
-NeoBundle 'scrooloose/syntastic.git'
+NeoBundle 'scrooloose/syntastic.git', {
+            \ 'build': {
+            \   'mac': ['pip install pyflake', 'npm -g install coffeelint'],
+            \   'unix': ['pip install pyflake', 'npm -g install coffeelint']
+            \ }}
+NeoBundle 'kchmck/vim-coffee-script'
 
 "for vimshell {{{2
 " vimsehll
