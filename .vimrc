@@ -292,6 +292,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'https://github.com/Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell.git'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
+NeoBundle 'scrooloose/syntastic.git'
 
 "for vimshell {{{2
 " vimsehll
