@@ -344,7 +344,8 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ 'scheme' : $HOME.'/.gosh_completions',
+    \ 'coffee' : $HOME.'/.vim/dict/javascript.dict'
         \ }
 
 " Define keyword.
