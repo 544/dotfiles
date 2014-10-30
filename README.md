@@ -5,4 +5,3 @@ configuration files
 
 test
 
-ｈほほｇほげほげｈほげほほげほｇほげほげほげほげ
