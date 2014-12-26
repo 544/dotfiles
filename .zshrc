@@ -1,5 +1,4 @@
 # setting for zsh
-#
 # for Vim
 export VIMHOME=~/.vim/
 # for ctags
@@ -49,6 +48,9 @@ alias -g V="| vim -R -"
 alias -g HL="| highlight"
 
 export PATH=/usr/local/bin:$PATH
+# setting for node.js
+source ~/.nvm/nvm.sh
+
 # add cpanm
 # use cpanm App::highlight
 export PERL_LOCAL_LIB_ROOT=~/perl5
