@@ -44,6 +44,7 @@ alias -g E="| egrep"
 alias -g H="| head"
 alias -g T="| tail"
 alias -g X="| xargs"
+alias -g P="| peco"
 alias -g V="| vim -R -"
 alias -g HL="| highlight"
 
@@ -275,6 +276,7 @@ __git_files() { _files }
 #######################################
 # peco hitory
 #######################################
+#
 function peco-select-history() {
     local tac
     if which tac > /dev/null; then
@@ -282,16 +284,14 @@ function peco-select-history() {
     else
         tac="tail -r"
     fi
-    BUFFER=$(\history -n 1 | \
+    BUFFER=$(history -n 1 | \
         eval $tac | \
         peco --query "$LBUFFER")
-    CURSOR=$BUFFER
-    zle clear-screen
+    CURSOR=$#BUFFER
+    #zle clear-screen
 }
 zle -N peco-select-history
 bindkey '^r' peco-select-history
-
-
 
 # Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
 export COCOS_CONSOLE_ROOT=~/Library/cocos2d-x/tools/cocos2d-console/bin
