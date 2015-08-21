@@ -272,7 +272,6 @@ endif
 " Let NeoBundle manage NeoBundle
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 
 " Recommended to install
 " After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
@@ -299,6 +298,7 @@ NeoBundle 'scrooloose/syntastic.git', {
             \ }}
 NeoBundle 'kchmck/vim-coffee-script'
 
+
 "for vimshell {{{2
 " vimsehll
 let g:vimshell_interactive_update_time = 10
@@ -312,6 +312,8 @@ NeoBundle 'https://github.com/tpope/vim-fugitive'
 NeoBundle 'gregsexton/gitv'
 
 NeoBundle 'itchyny/lightline.vim' " ステータスライン
+
+call neobundle#end()
 
 filetype plugin indent on     " Required!
 filetype indent on
@@ -472,28 +474,13 @@ let g:lightline = {
       \ },
       \ }
 
+
 function! MyFileName()
 	return expand('%:p')
 endfunction
 
 " 言語設定/その他 {{{1
 
-"========== 各言語での実行
-"for perl
-" perlファイルを開いた時だけにしたい。
-"command! Perl call s:Perl()
-"nmap <F8> :Perl<CR>
-"function! s:Perl()
-"	:w
-"		:!perl %
-"endfunction
-"command! Perlc call s:Perlc()
-"nmap <F5> :Perlc<CR>
-"function! s:Perlc()
-"	:w
-"		:!perl -c %
-"endfunction
-"
 " for coffeeScript
 " vimにcoffeeファイルタイプを認識させる
 au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
@@ -521,3 +508,4 @@ set modelines=3
 " vim: foldmethod=marker
 " vim: foldcolumn=3
 " vim: foldlevel=0
+
