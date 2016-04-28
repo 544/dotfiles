@@ -27,77 +27,8 @@ set nocompatible "vi互換モードをオフ
 set shellslash   "パス区切りをスラッシュにする
 set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
+" }}}
 
-
-"入力関係 {{{1
-set backspace=indent,eol,start  "BSでなんでも消せるようにする
-set formatoptions+=mM           "整形オプションにマルチバイト系を追加
-set autoindent
-set smartindent
-
-set wildmenu
-set wildmode=list:longest
-set completeopt=menu,preview,menuone
-
-"検索関係 {{{1
-set incsearch    "インクリメンタルサーチ
-set nowrapscan   "ラップしない
-set ignorecase   "大文字小文字無視
-set smartcase    "大文字で始めたら大文字小文字を区別する
-set hlsearch     "検索文字をハイライト表示
-
-"選択した文字列を検索
-vnoremap <silent> // y/<C-R>=escape(@", '¥¥/.*$^~[]')<CR><CR>
-"選択した文字列を置換
-vnoremap /r "xy:%s/<C-R>=escape(@x, '¥¥/.*$^~[]')<CR>//gc<Left><Left><Left>
-
-"カーソル下の文字コードを表示 {{{
-"http://vimwiki.net/?tips%2F98
-function! Getb()
-  let c = matchstr(getline('.'), '.', col('.') - 1)
-  let c = iconv(c, &enc, &fenc)
-  return String2Dec(c)
-endfunction
-function! GetB()
-  let c = matchstr(getline('.'), '.', col('.') - 1)
-  let c = iconv(c, &enc, &fenc)
-  return String2Hex(c)
-endfunction
-" :help eval-examples
-" The function Nr2Hex() returns the Hex string of a number.
-func! Nr2Hex(nr)
-  let n = a:nr
-  let r = ""
-  while n
-    let r = '0123456789ABCDEF'[n % 16] . r
-    let n = n / 16
-  endwhile
-  return r
-endfunc
-" The function String2Hex() converts each character in a string to a two
-" character Hex string.
-func! String2Hex(str)
-  let out = ''
-  let ix = 0
-  while ix < strlen(a:str)
-    let out = out . Nr2Hex(char2nr(a:str[ix]))
-    let ix = ix + 1
-  endwhile
-  return out
-endfunc
-func! String2Dec(str)
-  let out = ''
-  let ix = 0
-  while ix < strlen(a:str)
-    if ix == 1
-      let out = out . ','
-    endif
-    let out = out . printf('%3d', char2nr(a:str[ix]))
-    let ix = ix + 1
-  endwhile
-  return out
-endfunc
-"}}}
 
 "操作関係 {{{1
 set scrolloff=10    "スクロール時に表示を5行確保

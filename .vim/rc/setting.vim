@@ -19,10 +19,11 @@ set smarttab        " スマートなタブ切り替え
 " }}}
 
 " 検索 {{{
-set ignorecase " 検索時に大文字・小文字を区別しない
-set smartcase  " 検索パターンの大文字・小文字自動認識
-set hlsearch   " 検索パターンを強調表示
-set incsearch  " インクリメンタルサーチ
+set incsearch    "インクリメンタルサーチ
+set nowrapscan   "ラップしない
+set ignorecase   "大文字小文字無視
+set smartcase    "大文字で始めたら大文字小文字を区別する
+set hlsearch     "検索文字をハイライト表示
 " }}}
 
 " インデントと整形 {{{
