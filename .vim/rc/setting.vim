@@ -41,8 +41,6 @@ set showmatch            " 対応する括弧を自動的に装飾して表示
 set laststatus=1         " ステータスラインは常に表示
 set number               " 現在行の行番号を表示する
 set numberwidth=3        " 行番号の幅は 3 桁
-"set list                 " 空白の可視化
-"set listchars=tab:›\ ,trail:␣,eol:჻,extends:»,precedes:«,nbsp:¯
 set showtabline=1        " tabline をタブが 2 つ以上あるときだけ表示する
 set cmdheight=2          " 画面最下段のコマンド表示行数
 " }}}
@@ -51,8 +49,8 @@ set cmdheight=2          " 画面最下段のコマンド表示行数
 syntax enable
 "set background=light
 "colorscheme solarized
-"set background=dark
-colorscheme twilight
+set background=dark
+colorscheme jellybeans
 " }}}
 
 " その他 {{{
