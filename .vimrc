@@ -5,7 +5,6 @@ set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
 
 
-
 "表示関係 {{{1
 set t_Co=256     "256色ターミナル対応
 colorscheme elflord  " 色テーマ
@@ -197,11 +196,9 @@ set scrolloff=10    "スクロール時に表示を5行確保
 " 行折り返し \w
 nnoremap <Leader>w  :set wrap!<CR>
 
-"Ctrl+jkで5行ずつ移動
-map <C-k> <Up><Up><Up><Up><Up>
-imap <C-k> <Up><Up><Up><Up><Up>
-map <C-j> <Down><Down><Down><Down><Down>
-imap <C-j> <Down><Down><Down><Down><Down>
+"カーソルで4行ずつ移動
+nnoremap <Up> 4k
+nnoremap <Down> 4j
 
 "表示行単位で移動
 noremap j gj
