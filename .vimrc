@@ -21,6 +21,7 @@ function s:load_rc(file)
 endfunction
 
 call s:load_rc('setting') " オプション設定
+call s:load_rc('keymap') " オプション設定
 
 " 全般 {{{1
 set nocompatible "vi互換モードをオフ
@@ -29,33 +30,6 @@ set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
 " }}}
 
-
-"操作関係 {{{1
-set scrolloff=10    "スクロール時に表示を5行確保
-
-" 行折り返し \w
-nnoremap <Leader>w  :set wrap!<CR>
-
-"カーソルで4行ずつ移動
-nnoremap <Up> 4k
-nnoremap <Down> 4j
-
-"表示行単位で移動
-noremap j gj
-noremap k gk
-noremap gj j
-noremap gk k
-
-"挿入モードのカーソル移動
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-h> <Left>
-inoremap <M-l> <Right>
-
-"最後に変更されたテキストを選択
-nnoremap gc `[v`]
-vnoremap gc :<C-u>normal gc<CR>
-onoremap gc :<C-u>normal gc<CR>
 
 "挿入モードで範囲選択（セレクトモード）
 set selectmode=key
@@ -72,10 +46,6 @@ nnoremap <S-Up> <C-W>k
 nnoremap <S-Down> <C-W>j
 nnoremap <S-Left> <C-W>h
 nnoremap <S-Right> <C-W>l
-
-"バッファ切り替え
-nnoremap <S-PageDown> :<C-u>bn<CR>
-nnoremap <S-PageUp>   :<C-u>bp<CR>
 
 "タブ表示
 " Anywhere SID.
@@ -139,7 +109,6 @@ NeoBundle 'spolu/dwm.vim'
 " Unite 設定
 noremap zp :Unite buffer_tab file_mru<CR>
 noremap zn :UniteWithBufferDir -buffer-name=files file file/new<CR>
-
 
 "for vimshell {{{2
 " vimsehll
