@@ -1,26 +1,33 @@
+scriptencoding 'utf-8'
+
+if &compatible
+	set nocompatible
+endif
+
+if len($H)
+	let g:home = expand('$H')
+	set runtimepath =~/.vim
+	set runtimepath+=$H/.vim
+else
+	let g:home = expand('~')
+endif
+
+let g:vim_home = g:home . '/.vim'
+let g:rc_dir   = g:vim_home . '/rc'
+execute 'set runtimepath+=' . g:vim_home . '/after'
+
+function s:load_rc(file)
+	execute 'source ' . g:rc_dir . '/' . a:file . '.vim'
+endfunction
+
+call s:load_rc('setting') " オプション設定
+
 " 全般 {{{1
 set nocompatible "vi互換モードをオフ
 set shellslash   "パス区切りをスラッシュにする
 set lazyredraw   "スクリプト実行中の描画を抑制
 set splitright   "vsplitで新規ウィンドウは右側にする
 
-
-"表示関係 {{{1
-set t_Co=256     "256色ターミナル対応
-colorscheme elflord  " 色テーマ
-set laststatus=2 "ステータスラインを常に表示
-
-set tabstop=4    " タブは4スペース
-set shiftwidth=4 "shiftwidth(sw) インデントの幅
-set softtabstop=0 "softtabstop(sts) Tabキーを押したときに挿入される空白の量
-
-set number       "行番号表示
-set title        "ウィンドウのタイトルを書き換える
-set cursorline   "カーソル行を強調表示
-
-syntax on           "シンタックスハイライト
-filetype indent on  "ファイルタイプによるインデントを行う
-filetype plugin on  "ファイルタイプによるプラグインを使う
 
 "入力関係 {{{1
 set backspace=indent,eol,start  "BSでなんでも消せるようにする
@@ -92,104 +99,6 @@ func! String2Dec(str)
 endfunc
 "}}}
 
-"エンコーディング関係 {{{1
-
-set fileformat=unix
-set fileformats=unix,dos,mac
-set encoding=utf-8
-if has('win32')
-  set encoding=cp932
-  set fileencoding=utf-8
-  set fileencodings=iso-2022-jp,euc-jp,utf-8,utf-16,ucs-2-internal,ucs-2
-else
-  set encoding=utf-8
-  set termencoding=utf-8
-  set fileencoding=utf-8
-  set fileencodings=iso-2022-jp,cp932,euc-jp,utf-16,ucs-2-internal,ucs-2
-endif
-
-"文字コードの自動認識 {{{
-"http://www.kawaz.jp/pukiwiki/?vim#content_1_7
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
-if has('iconv')
-  "let s:enc_euc = 'euc-jp'
-  let s:enc_euc = 'utf-8'
-  let s:enc_jis = 'iso-2022-jp'
-  " iconvがeucJP-msに対応しているかをチェック
-  if iconv("¥x87¥x64¥x87¥x6a", 'cp932', 'eucjp-ms') ==# "¥xad¥xc5¥xad¥xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  " iconvがJISX0213に対応しているかをチェック
-  elseif iconv("¥x87¥x64¥x87¥x6a", 'cp932', 'euc-jisx0213') ==# "¥xad¥xc5¥xad¥xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  " fileencodingsを構築
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-    let &fileencodings = &fileencodings .','. s:fileencodings_default
-    unlet s:fileencodings_default
-  else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^¥(euc-jp¥|euc-jisx0213¥|eucjp-ms¥)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
-    else
-      let &fileencodings = &fileencodings .','. s:enc_euc
-    endif
-  endif
-  " 定数を処分
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^¥x01-¥x7e]", 'n') == 0
-      let &fileencoding=&encoding
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-"}}}
-
-" □とか○の文字があってもカーソル位置がずれないようにする
-if exists('&ambiwidth')
-  " 一部のUCS文字の幅を自動計測して決める
-  if has('kaoriya')
-    set ambiwidth=auto
-  else
-    set ambiwidth=double
-  endif
-endif
-
-"バックアップファイル, スワップファイル {{{1
-set backup
-if has('win32')
-  if hostname() ==? 'LUNA'
-    let s:backup_dir = 'D:/vim_backup'
-  else
-    let s:backup_dir = 'C:/vim_backup'
-  endif
-else
-  let s:backup_dir = expand('~/.vim_backup')
-endif
-if !isdirectory(s:backup_dir)
-  exec mkdir(s:backup_dir, '', 0700)
-endif
-"set backupext=.bak
-let &backupdir = s:backup_dir
-let &directory = s:backup_dir
-
 "操作関係 {{{1
 set scrolloff=10    "スクロール時に表示を5行確保
 
@@ -260,8 +169,6 @@ map <silent> [Tag]n :tabnext<CR>
 " tn 次のタブ
 map <silent> [Tag]p :tabprevious<CR>
 " tp 前のタブ
-
-set grepprg=internal "内蔵grepを使う
 
 " NeoBundle {{{1
 if has('vim_starting')
@@ -463,8 +370,8 @@ endf
 command! Memo :call Memo()
 
 " モードラインを有効にする。 {{{1
-set modeline
-set modelines=3
+"set modeline
+"set modelines=3
 " vim: foldmethod=marker
 " vim: foldcolumn=3
 " vim: foldlevel=0
