@@ -48,7 +48,7 @@ alias -g P="| peco"
 alias -g V="| vim -R -"
 alias -g HL="| highlight"
 
-export PATH=~/bin:/usr/local/bin:$PATH
+export PATH=$PATH:~/bin:/usr/local/bin:/bin
 # setting for node.js
 source ~/.nvm/nvm.sh
 
