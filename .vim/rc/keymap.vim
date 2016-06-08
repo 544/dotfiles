@@ -23,6 +23,12 @@ inoremap <M-k> <Up>
 inoremap <M-h> <Left>
 inoremap <M-l> <Right>
 
+"ウィンドウ移動
+nnoremap <S-Up> <C-W>k
+nnoremap <S-Down> <C-W>j
+nnoremap <S-Left> <C-W>h
+nnoremap <S-Right> <C-W>l
+
 "最後に変更されたテキストを選択
 nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
