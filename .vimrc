@@ -43,6 +43,9 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 
+  
+NeoBundle 'scrooloose/syntastic'
+
 call s:load_rc('neobundle/unite') " 
 call s:load_rc('neobundle/neocomplcache') " 
 call s:load_rc('neobundle/fugitive') " 
