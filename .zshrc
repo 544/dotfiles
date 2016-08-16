@@ -25,7 +25,7 @@ alias rm='rm -i'
 alias h='history'
 alias hl='highlight'
 
-alias sed='gsed' # use gnu-sed (brew install gnu-sed)
+#alias sed='gsed' # use gnu-sed (brew install gnu-sed)
 
 # alias for git
 alias gs='git status'
@@ -96,8 +96,9 @@ local RPCOLOR='%{$fg[green]%}'
 local DEFAULT=%{$reset_color%}
 # 左右プロンプトの定義
 PROMPT=$LPCOLOR'[${USER}@${HOST%%.*}] %(!.#.$) '$DEFAULT
-RPROMPT=$RPCOLOR'%T[%~]'$DEFAULT
-RPROMPT=%1(v|%F{blue}%1v%f|)$RPCOLOR'%T[%~]'$DEFAULT
+# RPROMPT=$RPCOLOR'%T[%~]'$DEFAULT
+#RPROMPT=$RPCOLOR'[%~]'$DEFAULT
+RPROMPT=%1(v|%F{blue}%1v%f|)$RPCOLOR'[%~]'$DEFAULT
 setopt prompt_subst
 
 # タイトル変更
