@@ -24,9 +24,8 @@ call s:load_rc('setting') " オプション設定
 call s:load_rc('keymap') " オプション設定
 
 " NeoBundle {{{1
-if has('vim_starting')
+if has('vim_starting') " unload when vi-mode (git commit etc...)
   set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
 
 " Let NeoBundle manage NeoBundle
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -53,10 +52,17 @@ call s:load_rc('neobundle/lightline') "
 
 NeoBundle 'scrooloose/nerdtree'
 
+NeoBundle 'https://github.com/t9md/vim-quickhl'
+nmap <Space>hl <Plug>(quickhl-manual-this)
+xmap <Space>hl <Plug>(quickhl-manual-this)
+nmap <Space>hr <Plug>(quickhl-manual-reset)
+xmap <Space>hr <Plug>(quickhl-manual-reset)
+
 call neobundle#end()
+NeoBundleCheck " Installation check.
+endif
 
 filetype plugin indent on     " Required!
 filetype indent on
 
-NeoBundleCheck " Installation check.
 
