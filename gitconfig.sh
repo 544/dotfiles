@@ -2,35 +2,35 @@
 # this is git config set script
 
 # コミット時のユーザID
-#git config --global user.name "John Doe"
-#git config --global user.email johndoe@example.com
+#git config user.name "masato-tsukagoshi"
+#git config  user.email "masato.tsukagoshi@dena.com"
 
 # コミットコメント編集用エディタ
-git config --global core.editor 'vi -c "set fenc=utf-8"'
+git config  core.editor 'vi -c "set fenc=utf-8"'
 
 # log diff 利用時のページャ
 # nkfかますとうまく動かない・・・
-#git config --global core.pager 'lv -c | nkf -w -x'
-git config --global core.pager 'lv -c '
+#git config  core.pager 'lv -c | nkf -w -x'
+git config  core.pager 'lv -c '
 
 # 色設定
-git config --global color.ui true
+git config  color.ui true
 
 # alias
-git config --global alias.st status
-git config --global alias.co checkout
-git config --global alias.br branch
+git config  alias.st status
+git config  alias.co checkout
+git config  alias.br branch
 
 # Untracked filesを表示せず，not stagedと，stagedだけの状態を出力する
-git config --global alias.stt status -uno
+git config  alias.stt status -uno
 # 行ごとの差分じゃなくて，単語レベルでの差分を色付きで表示する
-git config --global alias.difff diff --word-diff
+git config  alias.difff diff --word-diff
 # いい感じのグラフでログを表示
-git config --global alias.graph 'log --graph --date-order -C -M --pretty=format:"<%h> %ad %Cgreen%d%Creset %s (%Cred%an%Creset)" --date=local'
-git config --global alias.graph-all 'log --graph --date-order -C -M --pretty=format:"<%h> %ad %Cgreen%d%Creset %s (%Cred%an%Creset)" --date=local --all'
-#git config --global alias.graph log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+git config  alias.graph 'log --graph --date-order -C -M --pretty=format:"<%h> %ad %Cgreen%d%Creset %s (%Cred%an%Creset)" --date=local'
+git config  alias.graph-all 'log --graph --date-order -C -M --pretty=format:"<%h> %ad %Cgreen%d%Creset %s (%Cred%an%Creset)" --date=local --all'
+#git config  alias.graph log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
 # 上の省略形
-#git config --global alias.gr log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+#git config  alias.gr log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
 
 exit
 
